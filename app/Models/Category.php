@@ -25,4 +25,10 @@ class Category extends Model
              ]
          ];
      }
+
+     //RELATION
+     public function entrance()
+     {
+         return $this->hasMany(Entrance::class, 'entrance_id', 'id');
+     }
 }

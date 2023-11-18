@@ -18,8 +18,9 @@ return new class extends Migration
             $table->foreignId('category_id')->references('id')->on('categorys');
             $table->foreignId('priority_id')->references('id')->on('prioritys');
             $table->dateTime('date');
-            $table->enum('status', ['approved', 'progress']);
+            $table->enum('status', ['approved', 'progress'])->default('progress');
             $table->string('description');
+            $table->foreignId('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

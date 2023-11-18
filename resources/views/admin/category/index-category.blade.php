@@ -3,7 +3,7 @@
 @section('title', 'Kategori')
 @section('breadcrumb')
     @parent
-    <li class="breadcrumb-item active">Kategori Tiket </li>
+    <li class="breadcrumb-item active">Kategori Tiket</li>
 @endsection
 
 @section('content')

@@ -87,7 +87,7 @@
         <!-- End Jquery -->
 
          <!-- Sweat Alert -->
-         {{-- @include('sweetalert::alert') --}}
+         @include('sweetalert::alert')
          <!-- End Sweat Alert -->
 
     </body>
