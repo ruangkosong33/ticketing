@@ -21,7 +21,7 @@
                     </tr>
                     <tr>
                         <td width="20%">Prioritas</td>
-                        <td>{!!$entrance->description!!}</td>
+                        <td>{{$entrance->priority->title}}</td>
                     </tr>
                     <tr>
                         <td width="20%">Tanggal Permohonan</td>
