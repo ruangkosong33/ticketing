@@ -149,7 +149,6 @@ class EntranceController extends Controller
 
         $entrance->update([
             'status'=>$request->status,
-            'description'=>$request->description,
         ]);
 
         return response()->json([$entrance, 'message'=>'Data Berhasil Di Update']);
