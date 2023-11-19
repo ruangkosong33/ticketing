@@ -28,7 +28,7 @@ class EntranceController extends Controller
 
     public function datas()
     {
-        $entrance=Entrance::orderBy('date')->get();
+        $entrance=Entrance::orderBy('date', 'desc')->get();
 
         return datatables($entrance)
             ->addIndexColumn()
@@ -54,10 +54,8 @@ class EntranceController extends Controller
             ->addColumn('action', function($row)
             {
                 return '
-                <a href="#" class="btn btn-info btn-sm">
-                <i class="fas fa-eye"></i>
-            </a>
-                <button onclick="editForm(`'.route('entrance.show', $row->id).'`)"  class="edit btn btn-warning btn-sm "><i class="fas fa-edit"></i></button>
+                <a href="' . route('entrance.detail', $row->id) . '" class="edit btn btn-info btn-sm"><i class="fas fa-eye"></i></a>
+                <button onclick="editForm(`'.route('entrance.show', $row->id).'`)"  class="edit btn btn-warning btn-sm ml-1"><i class="fas fa-edit"></i></button>
                 <button onclick="deleteData(`'.route('entrance.destroy', $row->id).'`)" class="destroy btn btn-danger btn-sm ml-1"><i class="fas fa-trash"></i></button>
                 ';
             })
@@ -85,6 +83,7 @@ class EntranceController extends Controller
             'priority_id'=>'required',
             'date'=>'required|date_format:Y-m-d H:i',
             'description'=>'required',
+            'file'=>'required|mimes:pdf|max:5000',
         ]);
 
         if($validator->fails())
@@ -92,13 +91,21 @@ class EntranceController extends Controller
             return response()->json(['errors'=>$validator->errors()], 422);
         }
 
-
+        if($request->file('file'))
+        {
+            $file=$request->file('file');
+            $extension=$file->getClientOriginalName();
+            $files=$extension;
+            $file->storeAs('public/uploads/file-ticket', $files);
+        }
+        
         $entrance=Entrance::create([
             'title'=>$request->title,
             'category_id'=>$request->category_id,
             'priority_id'=>$request->priority_id,
             'date'=>$request->date,
             'description'=>$request->description,
+            'file'=>$files,
             'user_id'=>Auth::id(),
         ]);
 
@@ -113,12 +120,17 @@ class EntranceController extends Controller
         return response()->json(['data'=>$entrance]);
     }
 
+    public function detail(Entrance $entrance)
+    {
+        return view('admin.entrance.show-entrance', ['entrance'=>$entrance]);
+    }
+
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(Entrance $entrance)
     {
-        return response()->json(['data'=>$entrance]);
+        //
     }
 
     /**
@@ -134,7 +146,7 @@ class EntranceController extends Controller
         {
             return response()->json(['errors'=>$validator->errors()], 422);
         }
-        
+
         $entrance->update([
             'status'=>$request->status,
             'description'=>$request->description,

@@ -80,7 +80,7 @@
                         <form method="POST" action="{{ route('register') }}">
                             @csrf
                             <div class="form-group form-box">
-                                <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" placeholder="Nama Lengkap" aria-label="Full Name" required autocomplete="name">
+                                <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" placeholder="Nama Lengkap" aria-label="Full Name" required autocomplete="name" autofocus>
                                 <i class="flaticon-user"></i>
 
                                 @error('name')

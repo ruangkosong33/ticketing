@@ -12,7 +12,7 @@ class Entrance extends Model
 
     protected $table='entrances';
 
-    protected $fillable=['title', 'slug', 'category_id', 'priority_id', 'date', 'status', 'description', 'user_id'];
+    protected $fillable=['title', 'slug', 'category_id', 'priority_id', 'date', 'status', 'description', 'file', 'user_id'];
 
     protected $hidden=[];
 

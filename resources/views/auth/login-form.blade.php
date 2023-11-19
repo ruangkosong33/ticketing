@@ -110,7 +110,7 @@
                             <div class="form-group mb-0">
                                 <button type="submit" class="btn-md btn-theme w-100">Masuk</button>
                             </div>
-                            <p class="text">OPD Belum Mempunyai Akun ?<a href="{{route('register')}}"> <br> <strong>Silahkan Daftar Registrasi</strong></a></p>
+                            <p class="text">OPD Belum Mempunyai Akun ?<a href="{{route('register')}}"> <br> Daftar <strong>Registrasi</strong></a></p>
                         </form>
                     </div>
                 </div>

@@ -20,6 +20,7 @@ return new class extends Migration
             $table->dateTime('date');
             $table->enum('status', ['approved', 'progress'])->default('progress');
             $table->string('description');
+            $table->string('file');
             $table->foreignId('user_id')->references('id')->on('users');
             $table->timestamps();
         });

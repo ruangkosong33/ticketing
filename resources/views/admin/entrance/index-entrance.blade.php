@@ -112,6 +112,24 @@
                 });
         }
 
+        function showForm(url, title ='Detail')
+        {
+            $.get(url)
+                .done(response => {
+
+                    $('#modal-form').modal('show');
+                    $('#modal-form .modal-title').text(title);
+                    $('#modal-form form').attr('action', url);
+                    $('#modal-form [name=_method]').val('put');
+
+                    loopForm(response.data);
+                })
+                .fail(errors => {
+                    showAlert('Tidak Dapat Menampilkan Data');
+                    return;
+                });
+        }
+
         function submitForm(originalForm)
         {
             $.post({

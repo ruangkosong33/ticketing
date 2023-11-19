@@ -59,6 +59,12 @@
                 </select>
             </div>
         </div>
+        <div class="col-lg-6">
+            <div class="form-group">
+                <label for="file">File Surat</label>
+                <input type="file" name="file" class="form-control">
+            </div>
+        </div>
     </div>
 
     <div class="form-group">

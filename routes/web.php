@@ -33,6 +33,7 @@ Route::middleware(['auth'])->group(function () {
 
     //Entrance
     Route::get('/entrance/datas', [EntranceController::class, 'datas'])->name('entrance.datas');
+    Route::get('/entrance/detail/{entrance}', [EntranceController::class, 'detail'])->name('entrance.detail');
     Route::resource('/entrance', EntranceController::class);
 
     //Category
