@@ -20,28 +20,31 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('logout', function()
-{
+Route::get('logout', function () {
     Auth::logout();
 });
 
 Auth::routes();
 
-Route::middleware(['auth'])->group(function () {
-    
+Route::middleware(['auth','isverified'])->group(function () {
+
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-    //Entrance
-    Route::get('/entrance/datas', [EntranceController::class, 'datas'])->name('entrance.datas');
-    Route::get('/entrance/detail/{entrance}', [EntranceController::class, 'detail'])->name('entrance.detail');
-    Route::resource('/entrance', EntranceController::class);
+    Route::middleware(['ensure'])->group(function () {
+        //Entrance
+        Route::get('/entrance/datas', [EntranceController::class, 'datas'])->name('entrance.datas');
+        Route::get('/entrance/detail/{entrance}', [EntranceController::class, 'detail'])->name('entrance.detail');
+        Route::resource('/entrance', EntranceController::class);
 
-    //Category
-    Route::get('/category/datas', [CategoryController::class, 'datas'])->name('category.datas');
-    Route::resource('category', CategoryController::class);
+        //Category
+        Route::get('/category/datas', [CategoryController::class, 'datas'])->name('category.datas');
+        Route::resource('category', CategoryController::class);
 
-    //Priority
-    Route::get('/priority/datas', [PriorityController::class, 'datas'])->name('priority.datas');
-    Route::resource('priority', PriorityController::class);
+        //Priority
+        Route::get('/priority/datas', [PriorityController::class, 'datas'])->name('priority.datas');
+        Route::resource('priority', PriorityController::class);
+    });
+
+
 
 });
