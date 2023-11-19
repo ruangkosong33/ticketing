@@ -64,6 +64,15 @@
             });
         });
 
+        $('[name=status2]').on('change', function () {
+            table.ajax.reload();
+        });
+
+        $('.datepicker').on('change.datetimepicker', function () {
+            table.ajax.reload();
+        });
+
+
         function addForm(url, title = 'Tambah')
         {
             $('#modal-form').modal('show');
@@ -87,6 +96,15 @@
                     resetForm('#modal-form form');
 
                     loopForm(response.data);
+
+                    let selectedCategories = [];
+                    response.data.categories.forEach(item => {
+                        selectedCategories.push(item.id);
+                    });
+
+                    $('#categories')
+                        .val(selectedCategories)
+                        .trigger('change');
                 })
                 .fail(errors => {
                     showAlert('Tidak Dapat Menampilkan Data');
@@ -143,7 +161,7 @@
             $(selector)[0].reset();
 
             $('.select2').trigger('change');
-            $('.form-control, .custom-select, .custom-radio, .custom-checkbox, .select2').removeClass('is-invalid');
+            $('.form-control, .custom-select, .custom-radio, .custom-checkbox, .select2, .summernote' ).removeClass('is-invalid');
             $('.invalid-feedback').remove();
         }
 

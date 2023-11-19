@@ -49,11 +49,21 @@
                 </div>
             </div>
         </div>
+        <div class="col-lg-6">
+            <div class="form-group">
+                <label for="status">Status</label>
+                <select name="status" id="status" class="custom-select">
+                    <option disabled selected>Pilih salah satu</option>
+                    <option value="approved">Approved</option>
+                    <option value="progress">Progress</option>
+                </select>
+            </div>
+        </div>
     </div>
 
     <div class="form-group">
         <label for="description">Deskripsi</label>
-        <textarea name="description" id="description" class="form-control summernote"></textarea>
+        <textarea name="description" id="description" class="form-control"></textarea>
     </div>
 
     <x-slot name="footer">

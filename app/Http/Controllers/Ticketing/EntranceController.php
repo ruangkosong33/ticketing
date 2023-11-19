@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Category;
 use App\Models\Entrance;
 use App\Models\Priority;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -31,6 +32,13 @@ class EntranceController extends Controller
 
         return datatables($entrance)
             ->addIndexColumn()
+            ->editColumn('title', function($title)
+            {
+                return Str::limit($title->title, 15, '....');
+            })
+            ->editColumn('status', function ($status) {
+                return '<span class="badge badge-'. $status->statusColor() .'">'. $status->status .'</span>';
+            })
             ->addColumn('user', function($user)
             {
                 return $user->user->name;
@@ -46,11 +54,14 @@ class EntranceController extends Controller
             ->addColumn('action', function($row)
             {
                 return '
+                <a href="#" class="btn btn-info btn-sm">
+                <i class="fas fa-eye"></i>
+            </a>
                 <button onclick="editForm(`'.route('entrance.show', $row->id).'`)"  class="edit btn btn-warning btn-sm "><i class="fas fa-edit"></i></button>
                 <button onclick="deleteData(`'.route('entrance.destroy', $row->id).'`)" class="destroy btn btn-danger btn-sm ml-1"><i class="fas fa-trash"></i></button>
                 ';
             })
-            ->rawColumns(['action'])
+            ->rawColumns(['action' ,'status'])
             ->escapeColumns([])
             ->make(true);
     }
@@ -97,17 +108,17 @@ class EntranceController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Entrance $entrance)
     {
-        //
+        return response()->json(['data'=>$entrance]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Entrance $entrance)
     {
-        //
+        return response()->json(['data'=>$entrance]);
     }
 
     /**
@@ -123,16 +134,10 @@ class EntranceController extends Controller
         {
             return response()->json(['errors'=>$validator->errors()], 422);
         }
-
-
+        
         $entrance->update([
-            'title'=>$request->title,
-            'category_id'=>$request->category_id,
-            'priority_id'=>$request->priority_id,
-            'date'=>$request->date,
             'status'=>$request->status,
             'description'=>$request->description,
-            'user_id'=>Auth::id(),
         ]);
 
         return response()->json([$entrance, 'message'=>'Data Berhasil Di Update']);

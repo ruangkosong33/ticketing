@@ -26,6 +26,24 @@ class Entrance extends Model
          ];
      }
 
+     //Status Color
+     public function statusColor()
+     {
+        $color = '';
+
+        switch ($this->status) {
+            case 'approved':
+                $color = 'success';
+                break;
+            case 'progress':
+                $color = 'danger';
+                break;
+            default:
+                break;
+        }
+        return $color;
+     }
+
      //RELATION
      public function category()
      {
