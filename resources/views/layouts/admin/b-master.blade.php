@@ -1,94 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Admin- Kaltim</title>
 
     <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="{{asset('bk/plugins/fontawesome-free/css/all.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('bk/plugins/fontawesome-free/css/all.min.css') }}">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- iCheck -->
-    <link rel="stylesheet" href="{{asset('bk/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('bk/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
     <!-- JQVMap -->
-    <link rel="stylesheet" href="{{asset('bk/plugins/jqvmap/jqvmap.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('bk/plugins/jqvmap/jqvmap.min.css') }}">
     <!-- overlayScrollbars -->
-    <link rel="stylesheet" href="{{asset('bk/plugins/overlayScrollbars/css/OverlayScrollbars.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('bk/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
     @stack('css_vendor')
     <!-- Theme style -->
-    <link rel="stylesheet" href="{{asset('bk/dist/css/adminlte.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('bk/dist/css/adminlte.min.css') }}">
     @stack('css_cdn')
-    </head>
+    @vite(['resources/js/app.js'])
 
-    <body class="hold-transition sidebar-mini layout-fixed">
+</head>
 
-        <!--Main Wrapper -->
-        <div class="wrapper">
+<body class="hold-transition sidebar-mini layout-fixed">
 
-            <!-- Navbar -->
-                @include('layouts.admin.b-nav')
-            <!-- /.navbar -->
+    <!--Main Wrapper -->
+    <div class="wrapper">
 
-            <!-- Sidebar -->
-                @include('layouts.admin.b-sidebar')
-            <!-- End Sidebar -->
+        <!-- Navbar -->
+        @include('layouts.admin.b-nav')
+        <!-- /.navbar -->
 
-            <!-- Content Wrapper -->
-            <div class="content-wrapper">
-                <!-- Content Header (Page header) -->
-                <div class="content-header">
-                  <div class="container-fluid">
+        <!-- Sidebar -->
+        @include('layouts.admin.b-sidebar')
+        <!-- End Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <div class="content-header">
+                <div class="container-fluid">
                     <div class="row mb-2">
-                      <div class="col-sm-6">
-                        <h1 class="m-0">@yield('title')</h1>
-                      </div>
-                      <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            @section('breadcrumb')
-                            <li class="breadcrumb-item"><a href="">Home</a></li>
-                            @show
-                        </ol>
-                      </div>
+                        <div class="col-sm-6">
+                            <h1 class="m-0">@yield('title')</h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                @section('breadcrumb')
+                                    <li class="breadcrumb-item"><a href="">Home</a></li>
+                                @show
+                            </ol>
+                        </div>
                     </div><!-- End Row -->
-                  </div><!-- End Container Fluid -->
-                </div>
-                <!-- End Content Header -->
-
-                <!-- Main Content -->
-                <section class="content">
-                  <div class="container-fluid">
-                    @yield('content')
-                  </div>
-                </section>
-                <!--End Main Content -->
-
+                </div><!-- End Container Fluid -->
             </div>
-            <!-- End Content Wrapper -->
+            <!-- End Content Header -->
 
-            <!-- Footer -->
-                @include('layouts.admin.b-footer')
-            <!-- End Footer -->
-
-            <!-- Control Sidebar -->
-            <aside class="control-sidebar control-sidebar-dark">
-            </aside>
-            <!-- End Control Sidebar -->
+            <!-- Main Content -->
+            <section class="content">
+                <div class="container-fluid">
+                    @yield('content')
+                </div>
+            </section>
+            <!--End Main Content -->
 
         </div>
-        <!-- End Main Wrapper -->
+        <!-- End Content Wrapper -->
 
-        <!-- jQuery -->
-        @include('layouts.admin.b-js')
-        <!-- End Jquery -->
+        <!-- Footer -->
+        @include('layouts.admin.b-footer')
+        <!-- End Footer -->
 
-         <!-- Sweat Alert -->
-         @include('sweetalert::alert')
-         <!-- End Sweat Alert -->
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+        </aside>
+        <!-- End Control Sidebar -->
 
-    </body>
+    </div>
+    <!-- End Main Wrapper -->
+
+    <!-- jQuery -->
+    @include('layouts.admin.b-js')
+    <!-- End Jquery -->
+
+    <!-- Sweat Alert -->
+    @include('sweetalert::alert')
+    <!-- End Sweat Alert -->
+
+    @stack('script')
+    @if(Auth::user()->role == 'admin')
+    <script>
+        window.onload = function() {
+            let notif = 0;
+            let newReg = 0;
+            let el_notif = document.getElementById('new_notif');
+            let el_newReg = document.getElementById('new_register');
+            el_notif.innerHTML = notif
+            el_newReg.innerHTML = newReg
+            Echo.channel('new-register')
+                .listen('RegisterNotification', (e) => {
+                    console.log('RegisterNotification: ' + e.message);
+                    notif += 1
+                    newReg += 1
+                    el_notif.innerHTML = notif
+                    el_newReg.innerHTML = newReg
+                });
+        }
+    </script>
+    @endif
+</body>
+
 </html>

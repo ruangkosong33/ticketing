@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Events\RegisterNotification;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
@@ -69,6 +70,8 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        event(new RegisterNotification('1 new register'));
+
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
