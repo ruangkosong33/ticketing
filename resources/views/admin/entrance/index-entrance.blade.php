@@ -72,6 +72,11 @@
             table.ajax.reload();
         });
 
+        $('#modal-form form').on('keydown', function (e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            submitForm(this);
+        }});
 
         function addForm(url, title = 'Tambah')
         {
