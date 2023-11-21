@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Ticketing\CategoryController;
 use App\Http\Controllers\Ticketing\EntranceController;
 use App\Http\Controllers\Ticketing\PriorityController;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,11 +25,14 @@ Route::get('logout', function () {
     Auth::logout();
 });
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
-Route::middleware(['auth','isverified'])->group(function () {
+Route::middleware(['auth','isverified', 'verified'])->group(function () {
 
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+    Route::get('profile', [HomeController::class, 'profile'])->name('profile');
+    Route::post('profile', [HomeController::class, 'update_profile'])->name('profile.update');
 
     Route::middleware(['ensure'])->group(function () {
         //Entrance

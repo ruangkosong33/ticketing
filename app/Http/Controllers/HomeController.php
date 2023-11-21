@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class HomeController extends Controller
 {
@@ -24,5 +25,51 @@ class HomeController extends Controller
     public function index()
     {
         return view('home');
+    }
+
+    public function profile()
+    {
+        $user = auth()->user();
+        return view('admin.profile', compact('user'));
+    }
+
+    public function update_profile(Request $request)
+    {
+        $user = auth()->user();
+        $this->validate($request, [
+            'name'=> 'required',
+            'email'=> 'required',
+            'opd_name'=> 'required',
+            'nip'=> 'required',
+            'phone'=> 'required',
+            'address'=> 'required',
+        ]);
+        if (isset($request->password)) {
+            $user->password = Hash::make($request->password);
+        }
+        $user->email = $request->email;
+        $user->name = $request->name;
+
+
+        if($user->opd()->count() > 0) {
+            $opd = $user->opd;
+            $opd->name = $request->opd_name;
+            $opd->nip = $request->nip;
+            $opd->phone = $request->phone;
+            $opd->address = $request->address;
+            $opd->save();
+        }
+        else {
+            $opd = $user->opd()->create([
+                'name' => $request->opd_name,
+                'nip' => $request->nip,
+                'phone' => $request->phone,
+                'address' => $request->address
+            ]);
+            $user->opd_id = $opd->id;
+        }
+        $user->save();
+
+        return redirect()->back();
     }
 }

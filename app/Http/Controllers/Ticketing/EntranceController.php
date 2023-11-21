@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Ticketing;
 
+use App\Events\RegisterNotification;
 use App\Models\User;
 use App\Models\Category;
 use App\Models\Entrance;
@@ -19,47 +20,72 @@ class EntranceController extends Controller
      */
     public function index()
     {
-        $category=Category::orderBy('id')->get();
+        $category = Category::orderBy('id')->get();
 
-        $priority=Priority::orderBy('id')->get();
+        $priority = Priority::orderBy('id')->get();
 
-        return view('admin.entrance.index-entrance', ['category'=>$category, 'priority'=>$priority]);
+        return view('admin.entrance.index-entrance', ['category' => $category, 'priority' => $priority]);
     }
 
     public function datas()
     {
-        $entrance=Entrance::orderBy('date', 'desc')->get();
+        $auth = auth()->user();
+        if ($auth->role == 'admin' || $auth->role == 'admin_operator') {
+            $entrance = Entrance::orderBy('date', 'desc')->get();
+        } else {
+            $entrance = Entrance::where('user_id', auth()->user()->id)->orderBy('date', 'desc')->get();
+        }
+        if ($auth->role == 'admin_opd') {
+            return datatables($entrance)
+                ->addIndexColumn()
+                ->editColumn('title', function ($title) {
+                    return Str::limit($title->title, 15, '....');
+                })
+                ->editColumn('status', function ($status) {
+                    return '<span class="badge badge-' . $status->statusColor() . '">' . $status->status . '</span>';
+                })
+                ->addColumn('user', function ($user) {
+                    return $user->user->name;
+                })
+                ->addColumn('categoryticket', function ($category) {
+                    return $category->category->title;
+                })
+                ->addColumn('priorityticket', function ($priority) {
+                    return $priority->priority->title;
+                })
+                ->addColumn('action', function ($row) {
+                    return '<a href="' . route('entrance.detail', $row->id) . '" class="edit btn btn-info btn-sm"><i class="fas fa-eye"></i></a>';
+                })
+                ->rawColumns(['action', 'status'])
+                ->escapeColumns([])
+                ->make(true);
+        }
 
         return datatables($entrance)
             ->addIndexColumn()
-            ->editColumn('title', function($title)
-            {
+            ->editColumn('title', function ($title) {
                 return Str::limit($title->title, 15, '....');
             })
             ->editColumn('status', function ($status) {
-                return '<span class="badge badge-'. $status->statusColor() .'">'. $status->status .'</span>';
+                return '<span class="badge badge-' . $status->statusColor() . '">' . $status->status . '</span>';
             })
-            ->addColumn('user', function($user)
-            {
+            ->addColumn('user', function ($user) {
                 return $user->user->name;
             })
-            ->addColumn('categoryticket', function($category)
-            {
+            ->addColumn('categoryticket', function ($category) {
                 return $category->category->title;
             })
-            ->addColumn('priorityticket', function($priority)
-            {
+            ->addColumn('priorityticket', function ($priority) {
                 return $priority->priority->title;
             })
-            ->addColumn('action', function($row)
-            {
+            ->addColumn('action', function ($row) {
                 return '
                 <a href="' . route('entrance.detail', $row->id) . '" class="edit btn btn-info btn-sm"><i class="fas fa-eye"></i></a>
-                <button onclick="editForm(`'.route('entrance.show', $row->id).'`)"  class="edit btn btn-warning btn-sm ml-1"><i class="fas fa-edit"></i></button>
-                <button onclick="deleteData(`'.route('entrance.destroy', $row->id).'`)" class="destroy btn btn-danger btn-sm ml-1"><i class="fas fa-trash"></i></button>
+                <button onclick="editForm(`' . route('entrance.show', $row->id) . '`)"  class="edit btn btn-warning btn-sm ml-1"><i class="fas fa-edit"></i></button>
+                <button onclick="deleteData(`' . route('entrance.destroy', $row->id) . '`)" class="destroy btn btn-danger btn-sm ml-1"><i class="fas fa-trash"></i></button>
                 ';
             })
-            ->rawColumns(['action' ,'status'])
+            ->rawColumns(['action', 'status'])
             ->escapeColumns([])
             ->make(true);
     }
@@ -77,39 +103,39 @@ class EntranceController extends Controller
      */
     public function store(Request $request)
     {
-        $validator=Validator::make($request->all(),[
-            'title'=>'required',
-            'category_id'=>'required',
-            'priority_id'=>'required',
-            'date'=>'required|date_format:Y-m-d H:i',
-            'description'=>'required',
-            'file'=>'required|mimes:pdf|max:5000',
+        $validator = Validator::make($request->all(), [
+            'title' => 'required',
+            'category_id' => 'required',
+            'priority_id' => 'required',
+            'date' => 'required|date_format:Y-m-d H:i',
+            'description' => 'required',
+            'file' => 'required|mimes:pdf|max:5000',
         ]);
 
-        if($validator->fails())
-        {
-            return response()->json(['errors'=>$validator->errors()], 422);
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
         }
 
-        if($request->file('file'))
-        {
-            $file=$request->file('file');
-            $extension=$file->getClientOriginalName();
-            $files=$extension;
+        if ($request->file('file')) {
+            $file = $request->file('file');
+            $extension = $file->getClientOriginalName();
+            $files = $extension;
             $file->storeAs('public/uploads/file-ticket', $files);
         }
-        
-        $entrance=Entrance::create([
-            'title'=>$request->title,
-            'category_id'=>$request->category_id,
-            'priority_id'=>$request->priority_id,
-            'date'=>$request->date,
-            'description'=>$request->description,
-            'file'=>$files,
-            'user_id'=>Auth::id(),
+
+        $entrance = Entrance::create([
+            'title' => $request->title,
+            'category_id' => $request->category_id,
+            'priority_id' => $request->priority_id,
+            'date' => $request->date,
+            'description' => $request->description,
+            'file' => $files,
+            'user_id' => Auth::id(),
         ]);
 
-        return response()->json([$entrance, 'message'=>'Data Berhasil Di Tambahkan']);
+        event(new RegisterNotification('1 registrasi baru'));
+
+        return response()->json([$entrance, 'message' => 'Data Berhasil Di Tambahkan']);
     }
 
     /**
@@ -117,12 +143,12 @@ class EntranceController extends Controller
      */
     public function show(Entrance $entrance)
     {
-        return response()->json(['data'=>$entrance]);
+        return response()->json(['data' => $entrance]);
     }
 
     public function detail(Entrance $entrance)
     {
-        return view('admin.entrance.show-entrance', ['entrance'=>$entrance]);
+        return view('admin.entrance.show-entrance', ['entrance' => $entrance]);
     }
 
     /**
@@ -138,20 +164,19 @@ class EntranceController extends Controller
      */
     public function update(Request $request, Entrance $entrance)
     {
-        $validator=Validator::make($request->all(),[
-            'status'=>'required',
+        $validator = Validator::make($request->all(), [
+            'status' => 'required',
         ]);
 
-        if($validator->fails())
-        {
-            return response()->json(['errors'=>$validator->errors()], 422);
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
         }
 
         $entrance->update([
-            'status'=>$request->status,
+            'status' => $request->status,
         ]);
 
-        return response()->json([$entrance, 'message'=>'Data Berhasil Di Update']);
+        return response()->json([$entrance, 'message' => 'Data Berhasil Di Update']);
     }
 
     /**
@@ -159,10 +184,10 @@ class EntranceController extends Controller
      */
     public function destroy(Entrance $entrance)
     {
-        $entrance=Entrance::where('id', $entrance->id);
+        $entrance = Entrance::where('id', $entrance->id);
 
         $entrance->delete();
 
-        return response()->json([$entrance, 'message'=>'Data Berhasil Di Hapus']);
+        return response()->json([$entrance, 'message' => 'Data Berhasil Di Hapus']);
     }
 }

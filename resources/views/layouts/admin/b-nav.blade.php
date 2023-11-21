@@ -17,9 +17,9 @@
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                     {{-- <span class="dropdown-item dropdown-header">15 Notifkasi</span> --}}
                     <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">
+                    <a href="{{route('entrance.index')}}" class="dropdown-item">
                         <i class="fas fa-users mr-2"></i>
-                        <span id="new_register">0</span> Registrasi Baru
+                        <span id="new_register">0</span> Tiket Baru
                     </a>
                 </div>
             </li>

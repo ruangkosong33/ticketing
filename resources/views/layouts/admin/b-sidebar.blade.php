@@ -31,6 +31,7 @@
             </a>
           </li>
 
+          @if(Auth::user()->role == 'admin')
           <li class="nav-header">Management Network</li>
 
           <li class="nav-item">
@@ -125,6 +126,7 @@
               </p>
             </a>
           </li>
+          @endif
 
           <li class="nav-item">
             <a href="{{route('entrance.index')}}" class="nav-link {{request()->is('entrance*') ? 'active' : ''}}">
@@ -145,17 +147,18 @@
             </a>
           </li>
 
+          @if(Auth::user()->role == 'admin_opd')
           <li class="nav-header">Profile</li>
 
           <li class="nav-item">
-            <a href="" class="nav-link">
+            <a href="{{ route('profile') }}" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
               <p>
                 User Profile
               </p>
             </a>
           </li>
-
+          @endif
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
