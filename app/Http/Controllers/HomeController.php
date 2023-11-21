@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -71,5 +72,14 @@ class HomeController extends Controller
         $user->save();
 
         return redirect()->back();
+    }
+
+    public function verifiedUser($id)
+    {
+        $user = User::findOrFail($id);
+        $user->verified = 1;
+        $user->save();
+
+        return redirect()->route('home');
     }
 }

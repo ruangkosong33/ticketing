@@ -27,7 +27,7 @@ Route::get('logout', function () {
 
 Auth::routes(['verify' => true]);
 
-Route::middleware(['auth','isverified', 'verified'])->group(function () {
+Route::middleware(['auth', 'isverified', 'verified'])->group(function () {
 
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
@@ -40,13 +40,17 @@ Route::middleware(['auth','isverified', 'verified'])->group(function () {
         Route::get('/entrance/detail/{entrance}', [EntranceController::class, 'detail'])->name('entrance.detail');
         Route::resource('/entrance', EntranceController::class);
 
-        //Category
-        Route::get('/category/datas', [CategoryController::class, 'datas'])->name('category.datas');
-        Route::resource('category', CategoryController::class);
+        Route::middleware(['role:admin'])->group(function () {
+            //Category
+            Route::get('/category/datas', [CategoryController::class, 'datas'])->name('category.datas');
+            Route::resource('category', CategoryController::class);
 
-        //Priority
-        Route::get('/priority/datas', [PriorityController::class, 'datas'])->name('priority.datas');
-        Route::resource('priority', PriorityController::class);
+            //Priority
+            Route::get('/priority/datas', [PriorityController::class, 'datas'])->name('priority.datas');
+            Route::resource('priority', PriorityController::class);
+
+            Route::get('/verified-user/{id}', [HomeController::class, 'verifiedUser'])->name('entrance.verified');
+        });
     });
 
 
