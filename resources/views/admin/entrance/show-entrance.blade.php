@@ -42,5 +42,7 @@
                 </x-table>
             </x-card>
         </div>
+
+        @include('admin.entrance.comments', ['entrance'=>$entrance])
     </div>
 @endsection

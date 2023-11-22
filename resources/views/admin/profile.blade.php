@@ -22,6 +22,9 @@ if($user->opd()->count() > 0) {
 
 @section('content')
     <div class="row">
+        @if(!auth()->user()->opd_id)
+        <h3>Silakan isi data OPD terlebih dahulu sebelum membuat tiket!</h3>
+        @endif
         <form class="g-3 mx-3 row" method="post" action="{{route('profile.update')}}">
             @csrf
             @method('post')

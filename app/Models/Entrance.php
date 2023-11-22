@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Entrance extends Model
 {
@@ -12,7 +13,7 @@ class Entrance extends Model
 
     protected $table='entrances';
 
-    protected $fillable=['title', 'slug', 'category_id', 'priority_id', 'date', 'status', 'description', 'file', 'user_id'];
+    protected $fillable=['title', 'slug', 'category_id', 'priority_id', 'date', 'status', 'description', 'file', 'user_id', 'read'];
 
     protected $hidden=[];
 
@@ -58,5 +59,10 @@ class Entrance extends Model
      public function user()
      {
          return $this->belongsTo(User::class, 'user_id', 'id');
+     }
+
+     public function comments(): HasMany
+     {
+        return $this->hasMany(Comment::class);
      }
 }

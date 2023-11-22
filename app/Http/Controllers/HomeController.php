@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Entrance;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -71,6 +72,8 @@ class HomeController extends Controller
         }
         $user->save();
 
+        toastr()->success('Profil berhasil diperbarui.');
+
         return redirect()->back();
     }
 
@@ -80,6 +83,24 @@ class HomeController extends Controller
         $user->verified = 1;
         $user->save();
 
+        toastr()->success('Akun '.$user->name.' berhasil diverifikasi.');
+
         return redirect()->route('home');
+    }
+
+    public function comment(Request $request, Entrance $entrance)
+    {
+        $this->validate($request, [
+            'content' => 'required',
+        ]);
+
+        $entrance->comments()->create([
+            'content' => $request->content,
+            'user_id' => auth()->user()->id,
+        ]);
+
+        toastr()->success('Komentar berhasil ditambahkan');
+
+        return redirect()->back();
     }
 }

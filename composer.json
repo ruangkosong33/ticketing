@@ -18,7 +18,8 @@
         "realrashid/sweet-alert": "^7.1",
         "symfony/http-client": "^6.3",
         "symfony/mailgun-mailer": "^6.3",
-        "yajra/laravel-datatables-oracle": "^10.11"
+        "yajra/laravel-datatables-oracle": "^10.11",
+        "yoeunes/toastr": "^2.3"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

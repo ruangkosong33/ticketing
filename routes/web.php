@@ -50,6 +50,8 @@ Route::middleware(['auth', 'isverified', 'verified'])->group(function () {
             Route::resource('priority', PriorityController::class);
 
             Route::get('/verified-user/{id}', [HomeController::class, 'verifiedUser'])->name('entrance.verified');
+
+            Route::post('/comment/{entrance}', [HomeController::class, 'comment'])->name('entrance.comment');
         });
     });
 

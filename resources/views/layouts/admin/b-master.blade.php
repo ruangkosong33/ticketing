@@ -94,25 +94,30 @@
     <!-- End Sweat Alert -->
 
     @stack('script')
-    @if(Auth::user()->role == 'admin')
-    <script>
-        window.onload = function() {
-            let notif = 0;
-            let newReg = 0;
-            let el_notif = document.getElementById('new_notif');
-            let el_newReg = document.getElementById('new_register');
-            el_notif.innerHTML = notif
-            el_newReg.innerHTML = newReg
-            Echo.channel('new-register')
-                .listen('RegisterNotification', (e) => {
-                    console.log('RegisterNotification: ' + e.message);
-                    notif += 1
-                    newReg += 1
-                    el_notif.innerHTML = notif
-                    el_newReg.innerHTML = newReg
-                });
-        }
-    </script>
+    @if (Auth::user()->role == 'admin')
+        @php
+            if (request()->is('entrance*')) {
+                $read_sum = 0;
+            }
+        @endphp
+        <script>
+            window.onload = function() {
+                let notif = {{ $read_sum }};
+                let newReg = {{ $read_sum }};
+                let el_notif = document.getElementById('new_notif');
+                let el_newReg = document.getElementById('new_register');
+                el_notif.innerHTML = notif
+                el_newReg.innerHTML = newReg
+                Echo.channel('new-register')
+                    .listen('RegisterNotification', (e) => {
+                        console.log('RegisterNotification: ' + e.message);
+                        notif += 1
+                        newReg += 1
+                        el_notif.innerHTML = notif
+                        el_newReg.innerHTML = newReg
+                    });
+            }
+        </script>
     @endif
 </body>
 

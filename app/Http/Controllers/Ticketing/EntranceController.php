@@ -61,6 +61,10 @@ class EntranceController extends Controller
                 ->make(true);
         }
 
+        foreach($entrance as $e) {
+            $e->read = 1;
+            $e->save();
+        }
         return datatables($entrance)
             ->addIndexColumn()
             ->editColumn('title', function ($title) {

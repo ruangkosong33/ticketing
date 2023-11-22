@@ -25,6 +25,6 @@ class IsVerified
 
         Auth::logout();
 
-        return redirect()->route('login')->withErrors(['email'=>'Mohon maaf, Akun ini masih menunggu verifikasi']);
+        return redirect()->route('login')->withErrors(['email'=>'Terima kasih registrasi berhasil, Mohon menunggu verifikasi dari Admin.']);
     }
 }

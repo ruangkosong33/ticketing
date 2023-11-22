@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
+use App\View\Composers\ReadEntranceComposer;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\View;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +22,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Paginator::useBootstrap();
+
+        View::composer(['layouts.admin.b-master'], ReadEntranceComposer::class);
     }
 }
