@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Ticketing;
 
 use App\Events\RegisterNotification;
+use App\Models\Notification;
 use App\Models\User;
 use App\Models\Category;
 use App\Models\Entrance;
@@ -137,7 +138,13 @@ class EntranceController extends Controller
             'user_id' => Auth::id(),
         ]);
 
-        event(new RegisterNotification('1 registrasi baru'));
+        event(new RegisterNotification('1 ticket baru'));
+
+        Notification::create([
+            'user_id' => auth()->user()->id,
+            'type' => 'ticket',
+            'entrance_id' => $entrance->id
+        ]);
 
         return response()->json([$entrance, 'message' => 'Data Berhasil Di Tambahkan']);
     }

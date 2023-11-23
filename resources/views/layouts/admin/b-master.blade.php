@@ -96,25 +96,57 @@
     @stack('script')
     @if (Auth::user()->role == 'admin')
         @php
-            if (request()->is('entrance*')) {
-                $read_sum = 0;
+            if (request()->is('notifications*')) {
+                $read_reg = 0;
+                $read_ticket = 0;
+                $read_comment = 0;
             }
         @endphp
         <script>
             window.onload = function() {
-                let notif = {{ $read_sum }};
-                let newReg = {{ $read_sum }};
+                let notifications = 0;
+                let newRegist = 0;
+                let newTicket = 0;
+                let newComment = 0;
+
+                notifications += {{ $read_reg }}
+                notifications += {{ $read_ticket }}
+                notifications += {{ $read_comment }}
+                newRegist += {{ $read_reg }}
+                newTicket += {{ $read_ticket }}
+                newComment += {{ $read_comment }}
+
                 let el_notif = document.getElementById('new_notif');
                 let el_newReg = document.getElementById('new_register');
-                el_notif.innerHTML = notif
-                el_newReg.innerHTML = newReg
+                let el_newRegReal = document.getElementById('new_reg');
+                let el_new_comment = document.getElementById('new_comment');
+                el_notif.innerHTML = notifications
+                el_newReg.innerHTML = newTicket
+                el_newRegReal.innerHTML = newRegist
+                el_new_comment.innerHTML = newComment
                 Echo.channel('new-register')
                     .listen('RegisterNotification', (e) => {
-                        console.log('RegisterNotification: ' + e.message);
-                        notif += 1
-                        newReg += 1
-                        el_notif.innerHTML = notif
-                        el_newReg.innerHTML = newReg
+                        console.log('TicketNotification: ' + e.message);
+                        notifications += 1
+                        newTicket += 1
+                        el_notif.innerHTML = notifications
+                        el_newReg.innerHTML = newTicket
+                    });
+                Echo.channel('new-reg')
+                    .listen('RegNotification', (e) => {
+                        console.log('RegNotification: ' + e.message);
+                        notifications += 1
+                        newRegist += 1
+                        el_notif.innerHTML = notifications
+                        el_newRegReal.innerHTML = newRegist
+                    });
+                Echo.channel('new-comment')
+                    .listen('CommentNotification', (e) => {
+                        console.log('CommentNotification: ' + e.message);
+                        notifications += 1
+                        newComment += 1
+                        el_notif.innerHTML = notifications
+                        el_new_comment.innerHTML = newComment
                     });
             }
         </script>

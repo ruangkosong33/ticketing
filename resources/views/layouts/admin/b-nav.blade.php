@@ -17,9 +17,17 @@
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                     {{-- <span class="dropdown-item dropdown-header">15 Notifkasi</span> --}}
                     <div class="dropdown-divider"></div>
-                    <a href="{{route('entrance.index')}}" class="dropdown-item">
-                        <i class="fas fa-users mr-2"></i>
+                    <a href="{{route('notifications.index')}}" class="dropdown-item">
+                        <i class="fas fa-envelope mr-2"></i>
                         <span id="new_register">0</span> Tiket Baru
+                    </a>
+                    <a href="{{route('notifications.index')}}" class="dropdown-item">
+                        <i class="fas fa-users mr-2"></i>
+                        <span id="new_reg">0</span> Pendaftar Baru
+                    </a>
+                    <a href="{{route('notifications.index')}}" class="dropdown-item">
+                        <i class="fas fa-comments mr-2"></i>
+                        <span id="new_comment">0</span> Komentar Baru
                     </a>
                 </div>
             </li>

@@ -20,3 +20,10 @@ Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
 Broadcast::channel('new-register', function ($user) {
     return true;
 });
+Broadcast::channel('new-reg', function ($user) {
+    return true;
+});
+Broadcast::channel('new-comment', function ($user) {
+    return true;
+});
+

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Events\RegisterNotification;
+use App\Events\RegNotification;
 use App\Http\Controllers\Controller;
+use App\Models\Notification;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -87,6 +89,13 @@ class RegisterController extends Controller
         ];
 
         \Mail::to('mataputih33@gmail.com')->send(new RegisterEmailToAdmin($details));
+
+        Notification::create([
+            'user_id' => $user->id,
+            'type' => 'register'
+        ]);
+
+        event(new RegNotification('1 registrasi baru'));
 
         return $user;
     }

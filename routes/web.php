@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DataCenter\VpsController;
@@ -30,6 +32,8 @@ Route::get('logout', function () {
 
 Auth::routes(['verify' => true]);
 
+Route::get('/verified-user/{id}', [HomeController::class, 'verifiedUser'])->name('entrance.verified');
+
 Route::middleware(['auth', 'isverified', 'verified'])->group(function () {
 
     Route::get('/home', [HomeController::class, 'index'])->name('home');
@@ -57,9 +61,10 @@ Route::middleware(['auth', 'isverified', 'verified'])->group(function () {
             Route::get('/vps/detail/{vps}', [VpsController::class, 'detail'])->name('vps.detail');
             Route::resource('/vps', VpsController::class);
 
-            Route::get('/verified-user/{id}', [HomeController::class, 'verifiedUser'])->name('entrance.verified');
-
             Route::post('/comment/{entrance}', [HomeController::class, 'comment'])->name('entrance.comment');
+
+            Route::resource('users', UserController::class);
+            Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
         });
     });
 

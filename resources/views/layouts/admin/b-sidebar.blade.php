@@ -156,6 +156,25 @@
             </a>
           </li>
           @endif
+          @if(Auth::user()->role == 'admin')
+          <li class="nav-header">Management Pengguna</li>
+          <li class="nav-item">
+            <a href="{{ route('notifications.index') }}" class="nav-link">
+              <i class="nav-icon fas fa-bell"></i>
+              <p>
+                Notifikasi
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{route('users.index')}}" class="nav-link">
+              <i class="nav-icon fas fa-users"></i>
+              <p>
+                Pengguna
+              </p>
+            </a>
+          </li>
+          @endif
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
