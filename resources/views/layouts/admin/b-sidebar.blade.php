@@ -38,13 +38,13 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-server"></i>
               <p>
-                Data Server
+                Data Center
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="" class="nav-link">
+                <a href="{{route('vps.index')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Virtual Private Server</p>
                 </a>
@@ -77,7 +77,6 @@
             </a>
           </li>
 
-
           <li class="nav-header">Management Device</li>
 
           <li class="nav-item">
@@ -105,7 +104,6 @@
               </li>
             </ul>
           </li>
-
 
           <li class="nav-header">Management Ticketing</li>
 
@@ -136,7 +134,6 @@
               </p>
             </a>
           </li>
-
 
           <li class="nav-item">
             <a href="" class="nav-link">

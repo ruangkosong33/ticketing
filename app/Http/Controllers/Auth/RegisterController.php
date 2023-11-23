@@ -86,7 +86,7 @@ class RegisterController extends Controller
             'user' => $user,
         ];
 
-        \Mail::to('yugojiro@gmail.com')->send(new RegisterEmailToAdmin($details));
+        \Mail::to('mataputih33@gmail.com')->send(new RegisterEmailToAdmin($details));
 
         return $user;
     }

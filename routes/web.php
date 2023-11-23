@@ -1,10 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\DataCenter\VpsController;
 use App\Http\Controllers\Ticketing\CategoryController;
 use App\Http\Controllers\Ticketing\EntranceController;
 use App\Http\Controllers\Ticketing\PriorityController;
-use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,8 @@ Route::get('/', function () {
 
 Route::get('logout', function () {
     Auth::logout();
+
+    return redirect('/login');
 });
 
 Auth::routes(['verify' => true]);
@@ -49,12 +52,15 @@ Route::middleware(['auth', 'isverified', 'verified'])->group(function () {
             Route::get('/priority/datas', [PriorityController::class, 'datas'])->name('priority.datas');
             Route::resource('priority', PriorityController::class);
 
+            //VPS
+            Route::get('/vps/datas', [VpsController::class, 'datas'])->name('vps.datas');
+            Route::get('/vps/detail/{vps}', [VpsController::class, 'detail'])->name('vps.detail');
+            Route::resource('/vps', VpsController::class);
+
             Route::get('/verified-user/{id}', [HomeController::class, 'verifiedUser'])->name('entrance.verified');
 
             Route::post('/comment/{entrance}', [HomeController::class, 'comment'])->name('entrance.comment');
         });
     });
-
-
 
 });

@@ -1,9 +1,9 @@
 @extends('layouts.admin.b-master')
 
-@section('title', 'Permohonan Tiket')
+@section('title', 'Virtual Private Server')
 @section('breadcrumb')
     @parent
-    <li class="breadcrumb-item active">Daftar Permohonan Tiket </li>
+    <li class="breadcrumb-item active">Virtual Private Server</li>
 @endsection
 
 @section('content')
@@ -12,7 +12,7 @@
         <div class="col-lg-12">
             <x-card>
                 <x-slot name="header">
-                    <button onclick="addForm('{{route('entrance.store')}}')"
+                    <button onclick="addForm('{{route('vps.store')}}')"
                     class="btn btn-primary"><i class="fas fa-plus-circle"></i> Tambah</a>
                 </x-slot>
 
@@ -20,9 +20,8 @@
                     <x-slot name="thead">
                         <th>No</th>
                         <th>Judul</th>
+                        <th>Kebutuhan</th>
                         <th>Tanggal</th>
-                        <th>Status</th>
-                        <th>Author</th>
                         <th>Action</th>
                     </x-slot>
                 </x-table>
@@ -31,7 +30,7 @@
     </div>
 
     <!-- Form Modal -->
-    @include('admin.entrance.form-entrance')
+    @include('admin.vps.form-vps')
     <!-- End Form Modal -->
 
 @endsection
@@ -40,8 +39,6 @@
 
     @include('include.datatable')
     @include('include.datepicker')
-    @include('include.summernote')
-    @include('include.select2')
 
     @push('script')
     <script>
@@ -51,14 +48,13 @@
             table= $('.table').DataTable({
                 processing: true,
                 autoWidth: false,
-                ajax: { url: '{{route('entrance.datas')}}'},
+                ajax: { url: '{{route('vps.datas')}}'},
                 columns:
                 [
                     {data: 'DT_RowIndex', name: 'DT_RowIndex', sortable: false, searchable: false},
                     {data: 'title', name: 'title', sortable: false},
+                    {data: 'recruitment', name: 'recruitment', sortable: false},
                     {data: 'date', name: 'date', sortable: false},
-                    {data: 'status', name: 'status', sortable: false},
-                    {data: 'user', name: 'user', sortable: false},
                     {data: 'action', name: 'action'}
                 ]
             });
