@@ -94,6 +94,7 @@
     <!-- End Sweat Alert -->
 
     @stack('script')
+    @stack('javascript')
     @if (Auth::user()->role == 'admin')
         @php
             if (request()->is('notifications*')) {
