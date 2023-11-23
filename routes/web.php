@@ -34,7 +34,7 @@ Auth::routes(['verify' => true]);
 
 Route::get('/verified-user/{id}', [HomeController::class, 'verifiedUser'])->name('entrance.verified');
 
-Route::middleware(['auth', 'isverified', 'verified'])->group(function () {
+Route::middleware(['auth', 'isverified'])->group(function () {
 
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
