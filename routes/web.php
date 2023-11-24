@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\DataCenter\VprController;
+use App\Http\Controllers\DataCenter\VpsController;
 use App\Http\Controllers\Ticketing\CategoryController;
 use App\Http\Controllers\Ticketing\EntranceController;
 use App\Http\Controllers\Ticketing\PriorityController;
@@ -49,6 +51,10 @@ Route::middleware(['auth', 'isverified'])->group(function () {
 
         Route::middleware(['role:admin'])->group(function () {
 
+            //VPR
+            Route::get('/vpr/datas', [VprController::class, 'datas'])->name('vpr.datas');
+            Route::resource('vpr', VprController::class);
+            
             //Category
             Route::get('/category/datas', [CategoryController::class, 'datas'])->name('category.datas');
             Route::resource('category', CategoryController::class);
