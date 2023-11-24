@@ -6,13 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Software extends Model
+class Hardware extends Model
 {
     use HasFactory, Sluggable;
 
-    protected $table='softwares';
+    protected $table='hardwares';
 
-    protected $fillable=['title', 'slug', 'type', 'system', 'license', 'owner'];
+    protected $fillable=['title', 'slug' , 'utilization', 'manage', 'location', 'application', 'specific'];
 
     protected $hidden=[];
 

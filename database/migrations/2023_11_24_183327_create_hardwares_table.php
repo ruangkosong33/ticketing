@@ -11,14 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('softwares', function (Blueprint $table) {
+        Schema::create('hardwares', function (Blueprint $table) {
             $table->id();
             $table->string('title');
             $table->string('slug');
-            $table->string('type')->nullable();
-            $table->string('system')->nullable();
-            $table->string('license')->nullable();
-            $table->string('owner')->nullable();
+            $table->string('utilization')->nullable();
+            $table->string('manage')->nullable();
+            $table->string('location')->nullable();
+            $table->string('application')->nullable();
+            $table->string('specific')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('softwares');
+        Schema::dropIfExists('hardwares');
     }
 };

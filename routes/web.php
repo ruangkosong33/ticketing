@@ -9,6 +9,7 @@ use App\Http\Controllers\DataCenter\VpsController;
 use App\Http\Controllers\Ticketing\CategoryController;
 use App\Http\Controllers\Ticketing\EntranceController;
 use App\Http\Controllers\Ticketing\PriorityController;
+use App\Http\Controllers\DataCenter\HardwareController;
 use App\Http\Controllers\DataCenter\SoftwareController;
 
 /*
@@ -69,11 +70,15 @@ Route::middleware(['auth', 'isverified'])->group(function () {
             Route::get('/software/detail/{software}', [SoftwareController::class, 'detail'])->name('software.detail');
             Route::resource('software', SoftwareController::class);
 
+            //Hardware
+            Route::get('/hardware/datas', [HardwareController::class, 'datas'])->name('hardware.datas');
+            Route::get('/hardware/detail/{hardware}', [HardwareController::class, 'detail'])->name('hardware.detail');
+            Route::resource('hardware', HardwareController::class);
+
             Route::post('/comment/{entrance}', [HomeController::class, 'comment'])->name('entrance.comment');
 
             Route::resource('users', UserController::class);
             Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
         });
     });
-
 });

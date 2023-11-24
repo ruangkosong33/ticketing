@@ -26,7 +26,8 @@ class SoftwareController extends Controller
             ->addColumn('action', function($row)
             {
                 return '
-                <button onclick="editForm(`'.route('software.show', $row->id).'`)"  class="edit btn btn-warning btn-sm "><i class="fas fa-edit"></i></button>
+                <a href="' . route('software.detail', $row->id) . '" class="edit btn btn-info btn-sm"><i class="fas fa-eye"></i></a>
+                <button onclick="editForm(`'.route('software.show', $row->id).'`)"  class="edit btn btn-warning btn-sm ml-1"><i class="fas fa-edit"></i></button>
                 <button onclick="deleteData(`'.route('software.destroy', $row->id).'`)" class="destroy btn btn-danger btn-sm ml-1"><i class="fas fa-trash"></i></button>
                 ';
             })
@@ -59,6 +60,10 @@ class SoftwareController extends Controller
 
         $software=Software::create([
             'title'=>$request->title,
+            'type'=>$request->type,
+            'system'=>$request->system,
+            'license'=>$request->license,
+            'owner'=>$request->owner,
         ]);
 
         return response()->json([$software, 'message'=>'Data Berhasil Di Tambahkan']);
@@ -70,6 +75,11 @@ class SoftwareController extends Controller
     public function show(Software $software)
     {
         return response()->json(['data'=>$software]);
+    }
+
+    public function detail(Software $software)
+    {
+        return view('admin.software.show-software', ['software'=>$software]);
     }
 
     /**
@@ -96,6 +106,10 @@ class SoftwareController extends Controller
 
         $software->update([
             'title'=>$request->title,
+            'type'=>$request->type,
+            'system'=>$request->system,
+            'license'=>$request->license,
+            'owner'=>$request->owner,
         ]);
 
         return response()->json([$software, 'message'=>'Data Berhasil Di Update']);

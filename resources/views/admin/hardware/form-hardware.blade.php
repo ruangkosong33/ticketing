@@ -1,7 +1,7 @@
 <x-modal size="modal-lg">
 
     <x-slot name="title">
-        Tambah Perangkat Lunak
+        Tambah Perangkat Keras
     </x-slot>
     
     @method('post')
@@ -9,14 +9,14 @@
     <div class="row">
         <div class="col-lg-6">
             <div class="form-group">
-                <label for="title">Nama Software/Aplikasi</label>
+                <label for="title">Nama Server</label>
                 <input type="text" name="title" id="title" class="form-control">
             </div>
         </div>
          <div class="col-lg-6">
             <div class="form-group">
-                <label for="type">Jenis Software</label>
-                <input type="text" name="type" id="type" class="form-control">
+                <label for="utilization">Jenis Penggunaan / Web Server, Mail Server</label>
+                <input type="text" name="utilization" id="utilization" class="form-control">
             </div>
         </div>
     </div>
@@ -24,14 +24,14 @@
     <div class="row">
         <div class="col-lg-6">
             <div class="form-group">
-                <label for="system">Jenis Sistem</label>
-                <input type="text" name="system" id="system" class="form-control">
+                <label for="manage">Pengelola Server</label>
+                <input type="text" name="manage" id="manage" class="form-control">
             </div>
         </div>
         <div class="col-lg-6">
             <div class="form-group">
-                <label for="license">Jenis Lisensi</label>
-                <input type="text" name="license" id="license" class="form-control">
+                <label for="location">Lokasi Server</label>
+                <input type="text" name="location" id="location" class="form-control">
             </div>
         </div>
     </div>
@@ -39,8 +39,14 @@
     <div class="row">
          <div class="col-lg-6">
             <div class="form-group">
-                <label for="owner">Pemilik Lisensi</label>
-                <input type="text" name="owner" id="owner" class="form-control">
+                <label for="application">Aplikasi Terinstall</label>
+                <input type="text" name="application" id="application" class="form-control">
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="form-group">
+                <label for="specific">Spesifikasi</label>
+                <input type="text" name="specific" id="specific" class="form-control">
             </div>
         </div>
     </div>

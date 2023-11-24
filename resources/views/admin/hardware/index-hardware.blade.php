@@ -1,9 +1,9 @@
 @extends('layouts.admin.b-master')
 
-@section('title', 'Software')
+@section('title', 'Hardware')
 @section('breadcrumb')
     @parent
-    <li class="breadcrumb-item active">Perangkat Lunak</li>
+    <li class="breadcrumb-item active">Perangkat Keras</li>
 @endsection
 
 @section('content')
@@ -12,16 +12,15 @@
         <div class="col-lg-12">
             <x-card>
                 <x-slot name="header">
-                    <button onclick="addForm('{{route('software.store')}}')"
+                    <button onclick="addForm('{{route('hardware.store')}}')"
                     class="btn btn-primary"><i class="fas fa-plus-circle"></i> Tambah</a>
                 </x-slot>
 
                 <x-table>
                     <x-slot name="thead">
                         <th>No</th>
-                        <th>Nama Software</th>
-                        <th>Jenis Sotware</th>
-                        <th>Lisensi</th>
+                        <th>Nama Server</th>
+                        <th>Jenis Penggunaan</th>
                         <th>Action</th>
                     </x-slot>
                 </x-table>
@@ -30,7 +29,7 @@
     </div>
 
     <!-- Form Modal -->
-    @include('admin.software.form-software')
+    @include('admin.hardware.form-hardware')
     <!-- End Form Modal -->
 
 @endsection
@@ -47,13 +46,12 @@
             table= $('.table').DataTable({
                 processing: true,
                 autoWidth: false,
-                ajax: { url: '{{route('software.datas')}}'},
+                ajax: { url: '{{route('hardware.datas')}}'},
                 columns:
                 [
                     {data: 'DT_RowIndex', name: 'DT_RowIndex', sortable: false, searchable: false},
                     {data: 'title', name: 'title', sortable: false},
-                    {data: 'type', name: 'type', sortable: false},
-                    {data: 'license', name: 'license', sortable: false},
+                    {data: 'utilization', name: 'utilization', sortable: false},
                     {data: 'action', name: 'action'}
                 ]
             });

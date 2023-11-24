@@ -1,6 +1,6 @@
 @extends('layouts.admin.b-master')
 
-@section('title', 'Detail')
+@section('title', 'Detail Perangkat Lunak')
 @section('breadcrumb')
     @parent
     <li class="breadcrumb-item active">Detail Perangkat Lunak</li>
@@ -15,7 +15,22 @@
                         <td width="20%">Nama Software / Aplikasi</td>
                         <td>{{$software->title}}</td>
                     </tr>
-                    
+                    <tr>
+                        <td width="20%">Jenis Software</td>
+                        <td>{{$software->type}}</td>
+                    </tr>
+                    <tr>
+                        <td width="20%">Jenis Sistem Operasi</td>
+                        <td>{{$software->system}}</td>
+                    </tr>
+                    <tr>
+                        <td width="20%">Jenis Lisensi</td>
+                        <td>{{$software->license}}</td>
+                    </tr>
+                    <tr>
+                        <td width="20%">Pemilik Lisensi</td>
+                        <td>{{$software->owner}}</td>
+                    </tr>
                 </x-table>
             </x-card>
         </div>
