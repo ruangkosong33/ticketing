@@ -26,7 +26,8 @@ class VprController extends Controller
             ->addColumn('action', function($row)
             {
                 return '
-                <button onclick="editForm(`'.route('vpr.show', $row->id).'`)"  class="edit btn btn-warning btn-sm "><i class="fas fa-edit"></i></button>
+                <a href="' . route('vpr.detail', $row->id) . '" class="edit btn btn-info btn-sm"><i class="fas fa-eye"></i></a>
+                <button onclick="editForm(`'.route('vpr.show', $row->id).'`)"  class="edit btn btn-warning btn-sm ml-1"><i class="fas fa-edit"></i></button>
                 <button onclick="deleteData(`'.route('vpr.destroy', $row->id).'`)" class="destroy btn btn-danger btn-sm ml-1"><i class="fas fa-trash"></i></button>
                 ';
             })
@@ -79,6 +80,11 @@ class VprController extends Controller
     public function show(Vpr $vpr)
     {
         return response()->json(['data'=>$vpr]);
+    }
+
+    public function detail(Vpr $vpr)
+    {
+        return view('admin.vpr.show-vpr', ['vpr'=>$vpr]);
     }
 
     /**

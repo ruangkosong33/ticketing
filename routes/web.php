@@ -53,6 +53,7 @@ Route::middleware(['auth', 'isverified'])->group(function () {
 
             //VPR
             Route::get('/vpr/datas', [VprController::class, 'datas'])->name('vpr.datas');
+            Route::get('/vpr/detail/{vpr}', [VprController::class, 'detail'])->name('vpr.detail');
             Route::resource('vpr', VprController::class);
             
             //Category
