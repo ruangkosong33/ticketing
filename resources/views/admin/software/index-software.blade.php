@@ -1,9 +1,9 @@
 @extends('layouts.admin.b-master')
 
-@section('title', 'Virtual Private Server')
+@section('title', 'Software')
 @section('breadcrumb')
     @parent
-    <li class="breadcrumb-item active">Virtual Private Server</li>
+    <li class="breadcrumb-item active">Perangkat Lunak</li>
 @endsection
 
 @section('content')
@@ -12,7 +12,7 @@
         <div class="col-lg-12">
             <x-card>
                 <x-slot name="header">
-                    <button onclick="addForm('{{route('vps.store')}}')"
+                    <button onclick="addForm('{{route('software.store')}}')"
                     class="btn btn-primary"><i class="fas fa-plus-circle"></i> Tambah</a>
                 </x-slot>
 
@@ -20,8 +20,6 @@
                     <x-slot name="thead">
                         <th>No</th>
                         <th>Judul</th>
-                        <th>Kebutuhan</th>
-                        <th>Tanggal</th>
                         <th>Action</th>
                     </x-slot>
                 </x-table>
@@ -30,7 +28,7 @@
     </div>
 
     <!-- Form Modal -->
-    @include('admin.vps.form-vps')
+    @include('admin.software.form-software')
     <!-- End Form Modal -->
 
 @endsection
@@ -38,7 +36,6 @@
     <x-toast />
 
     @include('include.datatable')
-    @include('include.datepicker')
 
     @push('script')
     <script>
@@ -48,24 +45,14 @@
             table= $('.table').DataTable({
                 processing: true,
                 autoWidth: false,
-                ajax: { url: '{{route('vps.datas')}}'},
+                ajax: { url: '{{route('software.datas')}}'},
                 columns:
                 [
                     {data: 'DT_RowIndex', name: 'DT_RowIndex', sortable: false, searchable: false},
                     {data: 'title', name: 'title', sortable: false},
-                    {data: 'recruitment', name: 'recruitment', sortable: false},
-                    {data: 'date', name: 'date', sortable: false},
                     {data: 'action', name: 'action'}
                 ]
             });
-        });
-
-        $('[name=status2]').on('change', function () {
-            table.ajax.reload();
-        });
-
-        $('.datepicker').on('change.datetimepicker', function () {
-            table.ajax.reload();
         });
 
         $('#modal-form form').on('keydown', function (e) {
@@ -97,15 +84,6 @@
                     resetForm('#modal-form form');
 
                     loopForm(response.data);
-
-                    let selectedCategories = [];
-                    response.data.categories.forEach(item => {
-                        selectedCategories.push(item.id);
-                    });
-
-                    $('#categories')
-                        .val(selectedCategories)
-                        .trigger('change');
                 })
                 .fail(errors => {
                     showAlert('Tidak Dapat Menampilkan Data');
@@ -162,7 +140,7 @@
             $(selector)[0].reset();
 
             $('.select2').trigger('change');
-            $('.form-control, .custom-select, .custom-radio, .custom-checkbox, .select2, .summernote' ).removeClass('is-invalid');
+            $('.form-control, .custom-select, .custom-radio, .custom-checkbox, .select2').removeClass('is-invalid');
             $('.invalid-feedback').remove();
         }
 

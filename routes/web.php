@@ -1,13 +1,13 @@
 <?php
 
-use App\Http\Controllers\NotificationController;
-use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\DataCenter\VpsController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\Ticketing\CategoryController;
 use App\Http\Controllers\Ticketing\EntranceController;
 use App\Http\Controllers\Ticketing\PriorityController;
+use App\Http\Controllers\DataCenter\SoftwareController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,6 +48,7 @@ Route::middleware(['auth', 'isverified'])->group(function () {
         Route::resource('/entrance', EntranceController::class);
 
         Route::middleware(['role:admin'])->group(function () {
+
             //Category
             Route::get('/category/datas', [CategoryController::class, 'datas'])->name('category.datas');
             Route::resource('category', CategoryController::class);
@@ -56,10 +57,10 @@ Route::middleware(['auth', 'isverified'])->group(function () {
             Route::get('/priority/datas', [PriorityController::class, 'datas'])->name('priority.datas');
             Route::resource('priority', PriorityController::class);
 
-            //VPS
-            Route::get('/vps/datas', [VpsController::class, 'datas'])->name('vps.datas');
-            Route::get('/vps/detail/{vps}', [VpsController::class, 'detail'])->name('vps.detail');
-            Route::resource('/vps', VpsController::class);
+            //SOFTWARE
+            Route::get('/software/datas', [SoftwareController::class, 'datas'])->name('software.datas');
+            Route::get('/software/detail/{software}', [SoftwareController::class, 'detail'])->name('software.detail');
+            Route::resource('software', SoftwareController::class);
 
             Route::post('/comment/{entrance}', [HomeController::class, 'comment'])->name('entrance.comment');
 

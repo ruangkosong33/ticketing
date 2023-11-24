@@ -44,7 +44,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{route('vps.index')}}" class="nav-link">
+                <a href="" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Virtual Private Server</p>
                 </a>
@@ -89,7 +89,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="" class="nav-link">
+                <a href="{{route('software.index')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Perangkat Lunak</p>
                 </a>
