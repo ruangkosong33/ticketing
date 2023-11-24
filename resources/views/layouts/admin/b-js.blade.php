@@ -51,4 +51,5 @@
 </script>
 
 @stack('script')
+@stack('javascript')
 

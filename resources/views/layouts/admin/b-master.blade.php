@@ -93,8 +93,7 @@
     @include('sweetalert::alert')
     <!-- End Sweat Alert -->
 
-    @stack('script')
-    @stack('javascript')
+    <!-- Script -->
     @if (Auth::user()->role == 'admin')
         @php
             if (request()->is('notifications*')) {
@@ -152,6 +151,7 @@
             }
         </script>
     @endif
+    <!-- End Script -->
 </body>
 
 </html>
