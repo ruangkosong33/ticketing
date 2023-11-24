@@ -53,12 +53,21 @@
           </li>
 
           <li class="nav-item">
-            <a href="" class="nav-link">
+            <a href="#" class="nav-link">
               <i class="nav-icon fas fa-sitemap"></i>
               <p>
-                Jaringan Metro
+                Metro
+                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('intranet.index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Jaringan Intranet</p>
+                </a>
+              </li>
+            </ul>
           </li>
 
           <li class="nav-header">Management Device</li>

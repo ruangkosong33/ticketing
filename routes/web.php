@@ -5,7 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\DataCenter\VprController;
-use App\Http\Controllers\DataCenter\VpsController;
+use App\Http\Controllers\Metro\IntranetController;
 use App\Http\Controllers\Ticketing\CategoryController;
 use App\Http\Controllers\Ticketing\EntranceController;
 use App\Http\Controllers\Ticketing\PriorityController;
@@ -74,6 +74,11 @@ Route::middleware(['auth', 'isverified'])->group(function () {
             Route::get('/hardware/datas', [HardwareController::class, 'datas'])->name('hardware.datas');
             Route::get('/hardware/detail/{hardware}', [HardwareController::class, 'detail'])->name('hardware.detail');
             Route::resource('hardware', HardwareController::class);
+
+            //INTRANET
+            Route::get('/intranet/datas', [IntranetController::class, 'datas'])->name('intranet.datas');
+            Route::get('/intranet/detail/{intranet}', [IntranetController::class, 'detail'])->name('intranet.detail');
+            Route::resource('intranet', IntranetController::class);
 
             Route::post('/comment/{entrance}', [HomeController::class, 'comment'])->name('entrance.comment');
 
