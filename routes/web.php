@@ -54,6 +54,7 @@ Route::middleware(['auth', 'isverified'])->group(function () {
         Route::get('/entrance/datas', [EntranceController::class, 'datas'])->name('entrance.datas');
         Route::get('/entrance/detail/{entrance}', [EntranceController::class, 'detail'])->name('entrance.detail');
         Route::resource('/entrance', EntranceController::class);
+        Route::post('/comment/{entrance}', [HomeController::class, 'comment'])->name('entrance.comment');
 
         Route::middleware(['role:admin'])->group(function () {
 
@@ -90,9 +91,10 @@ Route::middleware(['auth', 'isverified'])->group(function () {
             Route::get('/whm/detail/{whm}', [WhmController::class, 'detail'])->name('whm.detail');
             Route::resource('whm', WhmController::class);
 
-            Route::post('/comment/{entrance}', [HomeController::class, 'comment'])->name('entrance.comment');
-
+            //USERS
             Route::resource('users', UserController::class);
+
+            //NOTIFICATIONS
             Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
         });
     });

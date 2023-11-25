@@ -49,6 +49,8 @@
                 </div>
             </div>
         </div>
+
+        @if(Auth::user()->role == 'admin')
         <div class="col-lg-6">
             <div class="form-group">
                 <label for="status">Status</label>
@@ -59,6 +61,8 @@
                 </select>
             </div>
         </div>
+        @endif
+        
         <div class="col-lg-6">
             <div class="form-group">
                 <label for="file">File Surat</label>
