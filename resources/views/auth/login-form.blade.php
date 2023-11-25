@@ -36,25 +36,15 @@
                 <div class="info">
                     <div class="info-text">
                         <div class="waviy">
-                            <span style="--i:1">w</span>
-                            <span style="--i:2">e</span>
-                            <span style="--i:3">l</span>
-                            <span style="--i:4">c</span>
-                            <span style="--i:5">o</span>
-                            <span style="--i:6">m</span>
-                            <span style="--i:7">e</span>
-                            <span class="color-yellow" style="--i:8">t</span>
-                            <span class="color-yellow" style="--i:9">o</span>
-                            <br>
-                            <span style="--i:10">S</span>
-                            <span style="--i:11">I</span>
-                            <span style="--i:12">G</span>
-                            <span style="--i:13">E</span>
-                            <span style="--i:14">L</span>
-                            <span style="--i:14">A</span>
-                            <span style="--i:14">T</span>
-                            <span style="--i:14">I</span>
-                            <span style="--i:14">K</span>
+                            <span style="--i:1">S</span>
+                            <span style="--i:2">I</span>
+                            <span style="--i:3">G</span>
+                            <span style="--i:4">E</span>
+                            <span style="--i:5">L</span>
+                            <span style="--i:6">A</span>
+                            <span class="color-yellow" style="--i:7">T</span>
+                            <span class="color-yellow" style="--i:8">I</span>
+                            <span class="color-yellow" style="--i:9">K</span>
                         </div>
                         <p><strong>(Sistem Informasi Layanan Gangguan Layanan TIK )</strong>, Laporkan apabila terjadi gangguan terhadap Layanan TIK yang ada di Lingkup Pemerintah Provinsi Kalimantan Timur</p>
                         <div class="social-buttons">

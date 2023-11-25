@@ -24,16 +24,20 @@ use App\Http\Controllers\DataCenter\SoftwareController;
 |
 */
 
+
+//LOGIN
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login');
 });
 
+//LOGOUT
 Route::get('logout', function () {
     Auth::logout();
 
-    return redirect('/login');
+    return redirect()->route('login');
 });
 
+//AUTH
 Auth::routes(['verify' => true]);
 
 Route::get('/verified-user/{id}', [HomeController::class, 'verifiedUser'])->name('entrance.verified');

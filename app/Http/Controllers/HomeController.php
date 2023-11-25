@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Entrance;
+use App\Models\Vpr;
+use App\Models\Whm;
 use App\Models\User;
+use App\Models\Category;
+use App\Models\Entrance;
+use App\Models\Intranet;
+use App\Models\Priority;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -26,7 +31,17 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $sumcategory=Category::orderBy('id')->count();
+        $sumentrance=Entrance::orderBy('id')->count();
+        $sumpriority=Priority::orderBy('id')->count();
+        $sumvpr=Vpr::orderBy('id')->count();
+        $sumwhm=Whm::orderBy('id')->count();
+        $sumintranet=Intranet::orderBy('id')->count();
+        $sumuser=User::orderBy('id')->count();
+
+        return view('home', ['sumcategory'=>$sumcategory, 'sumentrance'=>$sumentrance, 'sumpriority'=>$sumpriority,
+                    'sumuser'=>$sumuser, 'sumvpr'=>$sumvpr, 'sumwhm'=>$sumwhm, 'sumintranet'=>$sumintranet
+        ]);
     }
 
     public function profile()
