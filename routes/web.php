@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\DataCenter\VprController;
+use App\Http\Controllers\DataCenter\WhmController;
 use App\Http\Controllers\Metro\IntranetController;
 use App\Http\Controllers\Ticketing\CategoryController;
 use App\Http\Controllers\Ticketing\EntranceController;
@@ -79,6 +80,11 @@ Route::middleware(['auth', 'isverified'])->group(function () {
             Route::get('/intranet/datas', [IntranetController::class, 'datas'])->name('intranet.datas');
             Route::get('/intranet/detail/{intranet}', [IntranetController::class, 'detail'])->name('intranet.detail');
             Route::resource('intranet', IntranetController::class);
+
+            //WHM
+            Route::get('/whm/datas', [WhmController::class, 'datas'])->name('whm.datas');
+            Route::get('/whm/detail/{whm}', [WhmController::class, 'detail'])->name('whm.detail');
+            Route::resource('whm', WhmController::class);
 
             Route::post('/comment/{entrance}', [HomeController::class, 'comment'])->name('entrance.comment');
 

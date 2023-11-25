@@ -50,6 +50,14 @@
                 </a>
               </li>
             </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('whm.index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>WHM / C-Panel</p>
+                </a>
+              </li>
+            </ul>
           </li>
 
           <li class="nav-item">
@@ -123,16 +131,7 @@
             <a href="{{route('entrance.index')}}" class="nav-link {{request()->is('entrance*') ? 'active' : ''}}">
               <i class="nav-icon fas fa-bullhorn"></i>
               <p>
-                Tiket Aktif
-              </p>
-            </a>
-          </li>
-
-          <li class="nav-item">
-            <a href="" class="nav-link">
-              <i class="nav-icon fas fa-check"></i>
-              <p>
-                Tiket Selesai
+                Daftar Tiket
               </p>
             </a>
           </li>
