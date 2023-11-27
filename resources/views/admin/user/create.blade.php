@@ -47,6 +47,14 @@
                         'item' => null,
                     ])
                 </div>
+                <div class="col-md-6">
+                    @include('admin.components.select', [
+                        'title' => 'Verifikasi',
+                        'name' => 'verified',
+                        'data' => ['Terverifikasi' => 1, 'Tidak Diverifikasi' => 0],
+                        'item' => 1,
+                    ])
+                </div>
                 <div class="col-md-12">
                     <button type="submit" class="btn btn-success">Simpan</button>
                 </div>

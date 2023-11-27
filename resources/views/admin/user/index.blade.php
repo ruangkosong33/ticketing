@@ -46,6 +46,9 @@
                                 <td>
                                     <p class="mb-0">{{ $user->role }}</p>
                                 </td>
+                                <td>
+                                    <p class="mb-0">{{ $user->verified?'Terverifikasi':'Tidak Terverifikasi' }}</p>
+                                </td>
                                 <td class="align-middle text-center">
                                     <div class="d-flex align-items-center justify-content-center">
                                         <a href="{{ route('users.edit', [$user->id]) }}"

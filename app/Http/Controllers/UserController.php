@@ -42,6 +42,7 @@ class UserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => $request->role,
+            'verified' => $request->verified,
         ]);
         toastr()->success('Data user '.$user->name.' berhasil disimpan');
         return redirect()->route('users.index');
@@ -75,6 +76,7 @@ class UserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'role' => $request->role,
+            'verified' => $request->verified,
         ];
         if (isset($request->password)) {
             $data['password'] = Hash::make($request->password);
