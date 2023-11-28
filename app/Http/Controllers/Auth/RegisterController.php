@@ -92,7 +92,8 @@ class RegisterController extends Controller
 
         Notification::create([
             'user_id' => $user->id,
-            'type' => 'register'
+            'type' => 'register',
+            'name' => $user->name,
         ]);
 
         event(new RegNotification('1 registrasi baru'));

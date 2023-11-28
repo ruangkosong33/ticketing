@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\CommentNotification;
+use App\Models\Notification;
 use App\Models\Vpr;
 use App\Models\Whm;
 use App\Models\User;
@@ -112,6 +114,15 @@ class HomeController extends Controller
         $entrance->comments()->create([
             'content' => $request->content,
             'user_id' => auth()->user()->id,
+        ]);
+
+        event(new CommentNotification('1 komentar baru'));
+
+        Notification::create([
+            'user_id' => auth()->user()->id,
+            'type' => 'comment',
+            'entrance_id' => $entrance->id,
+            'name' => auth()->user()->name,
         ]);
 
         toastr()->success('Komentar berhasil ditambahkan');

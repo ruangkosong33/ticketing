@@ -22,14 +22,19 @@
                                     <div class="timeline-item">
                                         <span class="time">{{ $item->created_at }}</span>
                                         <h3 class="timeline-header border-0">
-                                            <strong>{{ $item->user->name }}</strong> registrasi baru.
+                                            <strong>{{ $item->user ? $item->user->name : $item->name }}</strong> registrasi
+                                            baru.
                                         </h3>
                                         <div class="timeline-footer">
-                                            @if ($item->user->verified)
-                                                Akun telah diregistrasi
+                                            @if ($item->user)
+                                                @if ($item->user->verified)
+                                                    Akun telah diregistrasi
+                                                @else
+                                                    <a href="{{ route('entrance.verified', $item->user->id) }}"
+                                                        class="btn btn-primary btn-sm">Verifikasi</a>
+                                                @endif
                                             @else
-                                                <a href="{{ route('entrance.verified', $item->user->id) }}"
-                                                    class="btn btn-primary btn-sm">Verifikasi</a>
+                                                User telah dihapus
                                             @endif
                                         </div>
                                     </div>
@@ -39,10 +44,15 @@
                                     <i class="fas fa-envelope bg-primary"></i>
                                     <div class="timeline-item">
                                         <span class="time">{{ $item->created_at }}</span>
-                                        <h3 class="timeline-header">
-                                            <strong>{{ $item->user->name }}</strong> buat Tiket baru <a
-                                                href="{{ route('entrance.detail', $item->entrance_id) }}">Lihat Tiket</a>
-                                        </h3>
+                                        @if ($item->user)
+                                            <h3 class="timeline-header">
+                                                <strong>{{ $item->user->name }}</strong> buat Tiket baru <a
+                                                    href="{{ route('entrance.detail', $item->entrance_id) }}">Lihat
+                                                    Tiket</a>
+                                            </h3>
+                                        @else
+                                            User telah dihapus
+                                        @endif
                                     </div>
                                 </div>
                             @else
@@ -51,12 +61,20 @@
                                     <div class="timeline-item">
                                         <span class="time">{{ $item->created_at }}</span>
                                         <h3 class="timeline-header">
-                                            <strong>{{ $item->user->name }}</strong> tulis komentar baru
+                                            <strong>{{ $item->user ? $item->user->name : $item->name }}</strong> tulis
+                                            komentar
+                                            baru
                                         </h3>
-                                        <div class="timeline-footer">
-                                            <a href="{{ route('entrance.detail', $item->entrance_id) }}"
-                                                class="btn btn-warning btn-flat btn-sm">Lihat Komentar</a>
-                                        </div>
+                                        @if ($item->user)
+                                            @if ($item->entrance_id)
+                                                <div class="timeline-footer">
+                                                    <a href="{{ route('entrance.detail', $item->entrance_id) }}"
+                                                        class="btn btn-warning btn-flat btn-sm">Lihat Komentar</a>
+                                                </div>
+                                            @endif
+                                        @else
+                                            User telah dihapus
+                                        @endif
                                     </div>
                                 </div>
                             @endif
@@ -66,7 +84,7 @@
                     </div>
                 </div>
                 <div class="card-footer">
-                    {{$items->links()}}
+                    {{ $items->links() }}
                 </div>
             </x-card>
         </div>
