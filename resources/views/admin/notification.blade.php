@@ -46,9 +46,12 @@
                                         <span class="time">{{ $item->created_at }}</span>
                                         @if ($item->user)
                                             <h3 class="timeline-header">
-                                                <strong>{{ $item->user->name }}</strong> buat Tiket baru <a
-                                                    href="{{ route('entrance.detail', $item->entrance_id) }}">Lihat
+                                                <strong>{{ $item->user->name }}</strong> buat Tiket baru
+                                                @if($item->entrance_id)
+                                                <a href="{{ route('entrance.detail', $item->entrance_id) }}">Lihat
                                                     Tiket</a>
+                                                Tiket telah dihapus
+                                                @endif
                                             </h3>
                                         @else
                                             User telah dihapus
@@ -71,6 +74,8 @@
                                                     <a href="{{ route('entrance.detail', $item->entrance_id) }}"
                                                         class="btn btn-warning btn-flat btn-sm">Lihat Komentar</a>
                                                 </div>
+                                            @else
+                                            Tiket telah dihapus
                                             @endif
                                         @else
                                             User telah dihapus
