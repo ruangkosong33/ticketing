@@ -50,6 +50,8 @@
                                                 @if($item->entrance_id)
                                                 <a href="{{ route('entrance.detail', $item->entrance_id) }}">Lihat
                                                     Tiket</a>
+                                                @else
+                                                <br>
                                                 Tiket telah dihapus
                                                 @endif
                                             </h3>
