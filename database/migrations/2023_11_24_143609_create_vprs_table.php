@@ -16,8 +16,9 @@ return new class extends Migration
             $table->string('title');
             $table->string('slug');
             $table->string('needs')->nullable();
-            $table->dateTime('date')->nullable();
-            $table->string('ip')->nullable();
+            $table->date('date')->nullable();
+            $table->string('ip_public')->nullable();
+            $table->string('ip_local')->nullable();
             $table->string('storage')->nullable();
             $table->string('core')->nullable();
             $table->string('ram')->nullable();

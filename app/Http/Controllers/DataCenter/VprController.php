@@ -51,7 +51,6 @@ class VprController extends Controller
     {
         $validator=Validator::make($request->all(),[
             'title'=>'required',
-            'date'=>'date_format:Y-m-d H:i',
         ]);
 
         if($validator->fails())
@@ -63,7 +62,8 @@ class VprController extends Controller
             'title'=>$request->title,
             'needs'=>$request->needs,
             'date'=>$request->date,
-            'ip'=>$request->ip,
+            'ip_public'=>$request->ip_public,
+            'ip_local'=>$request->ip_local,
             'storage'=>$request->storage,
             'core'=>$request->core,
             'ram'=>$request->ram,
@@ -113,7 +113,8 @@ class VprController extends Controller
             'title'=>$request->title,
             'needs'=>$request->needs,
             'date'=>$request->date,
-            'ip'=>$request->ip,
+            'ip_public'=>$request->ip_public,
+            'ip_local'=>$request->ip_local,
             'storage'=>$request->storage,
             'core'=>$request->core,
             'ram'=>$request->ram,

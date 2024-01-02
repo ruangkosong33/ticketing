@@ -12,7 +12,7 @@ class Vpr extends Model
 
     protected $table='vprs';
 
-    protected $fillable=['title', 'slug', 'needs', 'date', 'ip', 'storage', 'core', 'ram', 'port', 'database'];
+    protected $fillable=['title', 'slug', 'needs', 'date', 'ip_public', 'ip_local', 'storage', 'core', 'ram', 'port', 'database'];
 
     protected $hidden=[];
 

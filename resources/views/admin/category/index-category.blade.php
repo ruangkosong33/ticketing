@@ -142,6 +142,9 @@
             $('.select2').trigger('change');
             $('.form-control, .custom-select, .custom-radio, .custom-checkbox, .select2').removeClass('is-invalid');
             $('.invalid-feedback').remove();
+            $(selector + ' .summernote').each(function () {
+                $(this).summernote('code', '');
+            });
         }
 
         function loopForm(originalForm)

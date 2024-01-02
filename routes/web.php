@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\Landing\FrontController;
 use App\Http\Controllers\DataCenter\VprController;
 use App\Http\Controllers\DataCenter\WhmController;
 use App\Http\Controllers\Metro\IntranetController;
@@ -25,9 +26,12 @@ use App\Http\Controllers\DataCenter\SoftwareController;
 */
 
 
+
+//LANDING
+Route::get('/beranda', [FrontController::class, 'beranda'])->name('index.beranda');
 //LOGIN
 Route::get('/', function () {
-    return redirect()->route('login');
+    return view('layouts.guest.f-main');
 });
 
 //LOGOUT

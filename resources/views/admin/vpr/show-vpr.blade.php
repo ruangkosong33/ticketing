@@ -25,7 +25,11 @@
                     </tr>
                     <tr>
                         <td width="20%">IP Publik</td>
-                        <td>{{$vpr->ip}}</td>
+                        <td>{{$vpr->ip_public}}</td>
+                    </tr>
+                    <tr>
+                        <td width="20%">IP Lokal</td>
+                        <td>{{$vpr->ip_local}}</td>
                     </tr>
                     <tr>
                         <td width="20%">Storage/GB</td>

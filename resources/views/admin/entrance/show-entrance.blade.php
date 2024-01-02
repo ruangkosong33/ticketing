@@ -33,7 +33,8 @@
                     </tr>
                     <tr>
                         <td width="20%">File Surat</td>
-                        <td></td>
+                        <td><a href="{{ asset('storage/uploads/file-ticket/' . $entrance->file) }}" target="_blank">{{$entrance->file}}</a>
+                        </td>
                     </tr>
                     <tr>
                         <td width="30%">Deskripsi</td>
