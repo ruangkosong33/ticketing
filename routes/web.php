@@ -4,10 +4,13 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\Profil\AboutController;
 use App\Http\Controllers\Landing\FrontController;
 use App\Http\Controllers\DataCenter\VprController;
 use App\Http\Controllers\DataCenter\WhmController;
 use App\Http\Controllers\Metro\IntranetController;
+use App\Http\Controllers\Profil\AboutTwoController;
+use App\Http\Controllers\Profil\ThumbnailController;
 use App\Http\Controllers\Ticketing\CategoryController;
 use App\Http\Controllers\Ticketing\EntranceController;
 use App\Http\Controllers\Ticketing\PriorityController;
@@ -66,7 +69,19 @@ Route::middleware(['auth', 'isverified'])->group(function () {
             Route::get('/vpr/datas', [VprController::class, 'datas'])->name('vpr.datas');
             Route::get('/vpr/detail/{vpr}', [VprController::class, 'detail'])->name('vpr.detail');
             Route::resource('vpr', VprController::class);
-            
+
+            //ABOUT
+            Route::get('/about/datas', [AboutController::class, 'datas'])->name('about.datas');
+            Route::resource('/about', AboutController::class);
+
+            //ABOUT 2
+            Route::get('/abouttwo/datas', [AboutTwoController::class, 'datas'])->name('abouttwo.datas');
+            Route::resource('/abouttwo', AboutTwoController::class);
+
+            //THUMBNAIL
+            Route::get('/thumbnail/datas', [ThumbnailController::class, 'datas'])->name('thumbnail.datas');
+            Route::resource('/thumbnail', ThumbnailController::class);
+
             //Category
             Route::get('/category/datas', [CategoryController::class, 'datas'])->name('category.datas');
             Route::resource('category', CategoryController::class);

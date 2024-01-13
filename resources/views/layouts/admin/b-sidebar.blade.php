@@ -37,6 +37,34 @@
             </a>
           </li>
 
+          <li class="nav-header">Management Profil</li>
+
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-server"></i>
+              <p>
+                Profil
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('about.index')}}" class="nav-link {{request()->is('about*') ? 'active' : ''}}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Tentang</p>
+                </a>
+              </li>
+            </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('whm.index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p></p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
           <li class="nav-header">Management Network</li>
 
           <li class="nav-item">
